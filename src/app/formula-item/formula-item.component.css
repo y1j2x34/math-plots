@@ -1,0 +1,11 @@
+.plots-formula-item {
+    display: flex;
+}
+.plots-formula-item-editor {
+    background-color: #747d8c;
+    flex: 1;
+    min-width: 10em;
+}
+.plots-formula-item-tools {
+    width: 5em;
+}

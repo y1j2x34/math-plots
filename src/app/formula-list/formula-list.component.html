@@ -1,0 +1,10 @@
+<div>
+    <ul>
+        <formula-item *ngFor="let item of service.formulas" [item]="item">
+            {{item.text}}
+        </formula-item>
+    </ul>
+    <button nz-button nzType="primary">
+        <span nz-icon nzType="plus" nzTheme="outline"></span>
+    </button>
+</div>

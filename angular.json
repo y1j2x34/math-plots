@@ -21,8 +21,24 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/style.css"],
+            "assets": ["src/favicon.ico", "src/assets", {
+              "glob": "**/*",
+              "input": "node_modules/mathlive/dist/fonts",
+              "output": "./fonts"
+            }, {
+              "glob": "**/*",
+              "input": "node_modules/mathlive/dist/sounds",
+              "output": "./sounds"
+            }, {
+              "glob": "**/*",
+              "input": "node_modules/@ant-design/icons-angular/src/inline-svg/",
+              "output": "/assets/"
+            }],
+            "styles": [
+              "src/style.css",
+              "./node_modules/mathlive/dist/mathlive-fonts.css",
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
+            ],
             "scripts": []
           },
           "configurations": {

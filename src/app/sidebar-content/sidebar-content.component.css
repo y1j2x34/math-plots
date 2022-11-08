@@ -1,0 +1,10 @@
+:host(.plots-sidebar-content) {
+    flex: 1;
+    display: block;
+}
+.plots-sidebar-container.horizontal :host(.plots-sidebar-content) {
+    min-width: 0;
+}
+.plots-sidebar-container.vertical :host(.plots-sidebar-content) {
+    min-height: 0;
+}

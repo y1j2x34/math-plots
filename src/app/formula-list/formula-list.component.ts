@@ -1,0 +1,21 @@
+import { Component, OnInit } from '@angular/core';
+import { FormulaListService } from '../formula-list.service';
+import { PlotColorListService } from '../plot-color-list.service';
+
+@Component({
+  selector: 'formula-list',
+  templateUrl: './formula-list.component.html',
+  styleUrls: ['./formula-list.component.css']
+})
+export class FormulaListComponent implements OnInit {
+
+  constructor(public service: FormulaListService, public colorService: PlotColorListService) { }
+
+  ngOnInit(): void {
+
+  }
+
+  addFomula(text: string) {
+    this.service.add(text, this.colorService.getNextColor());
+  }
+}

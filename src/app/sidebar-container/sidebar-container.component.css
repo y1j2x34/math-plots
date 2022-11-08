@@ -1,0 +1,18 @@
+:host(.plots-sidebar-container) {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+:host(.plots-sidebar-container).vertical {
+    flex-direction: column;
+}
+:host(.plots-sidebar-container).vertical.reverse {
+    flex-direction: column-reverse;
+}
+:host(.plots-sidebar-container).horizontal {
+    flex-direction: row;
+}
+
+:host(.plots-sidebar-container).horizontal.reverse {
+    flex-direction: row-reverse;
+}
