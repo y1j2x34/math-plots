@@ -5,7 +5,10 @@ import { PlotColorListService } from '../plot-color-list.service';
 @Component({
   selector: 'formula-list',
   templateUrl: './formula-list.component.html',
-  styleUrls: ['./formula-list.component.css']
+  styleUrls: ['./formula-list.component.css'],
+  host: {
+    class: 'plots-formula-list'
+  }
 })
 export class FormulaListComponent implements OnInit {
 

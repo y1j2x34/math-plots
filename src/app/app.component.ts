@@ -1,19 +1,22 @@
-import { Component } from "@angular/core";
+import { Component, HostListener, OnInit } from "@angular/core";
 import { FormulaModule } from './formula/formula.module';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { SidebarModule } from './sidebar/sidebar.module';
+import { ToolbarModule } from './toolbar/toolbar.module';
 
 @Component({
   selector: "app-root",
   imports: [
     FormulaModule,
     NzInputModule,
-    SidebarModule
+    SidebarModule,
+    ToolbarModule
   ],
   template: `
     <div class="plots-app">
-      <sidebar-container direction="horizontal">
-        <sidebar [maxSize]="300">
+      <app-toolbar></app-toolbar>
+      <sidebar-container>
+        <sidebar [size]="sidebarWidth" (resize)="onSidebarResize($event)">
           <formula-list></formula-list>
         </sidebar>
         <sidebar-content>
@@ -33,6 +36,18 @@ import { SidebarModule } from './sidebar/sidebar.module';
   ],
   standalone: true
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  sidebarWidth = 0;
+  sizeRatio = 1 - 0.618;
   
+  ngOnInit(): void {
+    this.sidebarWidth = window.innerWidth * this.sizeRatio;
+  }
+  @HostListener('window:resize')
+  onWindowResize() {
+    this.sidebarWidth = window.innerWidth * this.sizeRatio;
+  }
+  onSidebarResize(newSize: number) {
+    this.sizeRatio = newSize / window.innerWidth;
+  }
 }

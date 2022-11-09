@@ -4,7 +4,10 @@ import { FormulaItem } from '../formula/formulaItem';
 @Component({
   selector: 'formula-item',
   templateUrl: './formula-item.component.html',
-  styleUrls: ['./formula-item.component.css']
+  styleUrls: ['./formula-item.component.css'],
+  host: {
+    class: 'plots-formula-item'
+  }
 })
 export class FormulaItemComponent implements OnInit {
 

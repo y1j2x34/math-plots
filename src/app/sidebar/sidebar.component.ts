@@ -1,4 +1,4 @@
-import { Component, ElementRef, Host, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Host, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
 import { SidebarContainerComponent } from '../sidebar-container/sidebar-container.component';
 
 @Component({
@@ -9,55 +9,118 @@ import { SidebarContainerComponent } from '../sidebar-container/sidebar-containe
   },
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit, OnChanges {
+export class SidebarComponent implements OnInit {
   @Input()
-  public maxSize = 300;
+  public maxSize = 1024;
   @Input()
-  public size = 300;
+  public minSize = 200;
+  @Input()
+  public size = 600;
 
-  constructor(private hostElement: ElementRef<HTMLElement>, @Host() private parent: SidebarContainerComponent) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    if('maxSize' in changes) {
-      this.updateMaxSize();
-    }
-    if('size' in changes) {
-      this.updateSize();
-    }
-  }
-  private updateMaxSize() {
+  private isDragging = false;
+  private startSize = 0;
+  private startPoint?: {
+    x: number;
+    y: number;
+  };
+
+  @Output()
+  private resize = new EventEmitter<number>();
+
+  @HostBinding('style.min-width')
+  get hostMinWidth () {
     switch(this.parent.direction) {
       case 'vertical':
-        this.hostElement.nativeElement.style.cssText += `
-          max-width: auto;
-          max-height: ${this.maxSize}px;
-        `;
-        break;
+        return null;
       case 'horizontal':
-        this.hostElement.nativeElement.style.cssText += `
-          max-height: auto;
-          max-width: ${this.maxSize}px;
-        `;
-        break;
+        return this.minSize + 'px';
     }
-  }
-  private updateSize() {
+  };
+
+  @HostBinding('style.min-height')
+  get hostMinHeight() {
     switch(this.parent.direction) {
       case 'vertical':
-        this.hostElement.nativeElement.style.cssText += `
-          height: ${this.size}px;
-        `;
-        break;
+        return this.minSize + 'px';
       case 'horizontal':
-        this.hostElement.nativeElement.style.cssText += `
-          width: ${this.size}px;
-        `;
-        break;
+        return null;
     }
-  }
+  };
+
+  @HostBinding('style.max-width')
+  get hostMaxWidth () {
+    switch(this.parent.direction) {
+      case 'vertical':
+        return null;
+      case 'horizontal':
+        return this.maxSize + 'px';
+    }
+  };
+
+  @HostBinding('style.max-height')
+  get hostMaxHeight() {
+    switch(this.parent.direction) {
+      case 'vertical':
+        return this.maxSize + 'px';
+      case 'horizontal':
+        return null;
+    }
+  };
+
+  @HostBinding('style.width')
+  get hostWidth () {
+    switch (this.parent.direction) {
+      case 'horizontal':
+        return this.size + 'px';
+      case 'vertical':
+        return null;
+    }
+  };
+
+  @HostBinding('style.height')
+  get hostHeight () {
+    switch (this.parent.direction) {
+      case 'horizontal':
+        return null;
+      case 'vertical':
+        return this.size + 'px';
+    }
+  };
+
+  constructor( @Host() private parent: SidebarContainerComponent) { }
 
   ngOnInit(): void {
-    this.updateMaxSize();
-    this.updateSize();
   }
 
+  onMousedownOnToggler(event: MouseEvent) {
+    this.isDragging = true;
+    this.startPoint = {
+      x: event.clientX,
+      y: event.clientY
+    }
+    this.startSize = this.size;
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onDragging(event: MouseEvent) {
+    if(!this.isDragging) {
+      return;
+    }
+    let delta: number = 0;
+    switch(this.parent.direction) {
+      case 'horizontal':
+        delta = event.clientX - this.startPoint!.x;
+        break;
+      case 'vertical':
+        delta = event.clientY - this.startPoint!.y;
+        break;
+    }
+
+    this.size = Math.min(Math.max(this.minSize, this.startSize + delta), this.maxSize);
+  }
+  @HostListener('document:mouseup', ['$event'])
+  onDragEnd() {
+    this.isDragging = false;
+    this.resize.emit(this.size);
+  }
 }

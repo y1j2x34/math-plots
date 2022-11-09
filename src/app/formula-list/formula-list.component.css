@@ -1,0 +1,8 @@
+:host(.plots-formula-list) {
+    display: flex;
+    flex-direction: column;
+}
+.plots-formula-items-list {
+    padding: 0;
+    margin-left: 0;
+}

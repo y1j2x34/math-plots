@@ -1,7 +1,8 @@
-<div class="plots-formula-item">
-    <math-field class="plots-formula-item-editor">f(x)=</math-field>
-    <div class="plots-formula-item-tools">
-        <input nz-button #colorSelector type="color" (change)="updatePlotColor(colorSelector.value)">
-        <button nz-button nzType="primary" (click)="delete()"></button>
-    </div>
+<div class="plots-formula-item-label ML__mathlive">
+    f(x)=
+</div>
+<math-field class="plots-formula-item-editor">x</math-field>
+<div class="plots-formula-item-tools">
+    <input nz-button #colorSelector type="color" (change)="updatePlotColor(colorSelector.value)">
+    <button nz-button nzType="primary" (click)="delete()"></button>
 </div>
