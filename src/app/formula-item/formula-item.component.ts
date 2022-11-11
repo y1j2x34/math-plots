@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormulaListService } from '../formula-list.service';
 import { FormulaItem } from '../formula/formulaItem';
 
 @Component({
@@ -14,17 +15,17 @@ export class FormulaItemComponent implements OnInit {
   @Input()
   item!: FormulaItem
 
-  constructor() { }
+  constructor(private formulaListService: FormulaListService) { }
 
 
   ngOnInit(): void {
     console.log(this.item);
   }
   updatePlotColor(color: string) {
-
+    this.item.color = color;
   }
   delete() {
-
+    this.formulaListService.delete(this.item);
   }
 
 }

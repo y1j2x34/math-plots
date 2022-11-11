@@ -15,7 +15,7 @@ export class FormulaListComponent implements OnInit {
   constructor(public service: FormulaListService, public colorService: PlotColorListService) { }
 
   ngOnInit(): void {
-
+    this.addFomula('');
   }
 
   addFomula(text: string) {

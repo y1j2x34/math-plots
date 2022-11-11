@@ -1,18 +1,44 @@
 :host(.plots-formula-item) {
     display: flex;
     margin-top: 0.5em;
-    height: 3em;
-    line-height: 3;
+    height: 4em;
+    border: 1px solid #dedede;
 }
 .plots-formula-item-editor {
-    /* background-color: #747d8c; */
     flex: 1;
     min-width: 10em;
     border: 1px solid #ddd;
+    border-top: 0;
+    border-bottom: 0;
+    display: flex;
+    align-items: center;
+}
+.plots-formula-item-editor:focus {
+    outline: 0;
 }
 .plots-formula-item-tools {
-    width: 5em;
+    width: 4em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 .plots-formula-item-label {
-    
+    line-height: 4;
+}
+.plots-formula-item-tools input {
+    padding: 5px;
+}
+.plots-formula-item-tools input,
+.plots-formula-item-tools .ant-btn {
+    width: 42px;
+    height: 23px;
+    cursor: pointer;
+    border-radius: 0;
+
+    border: 1px solid #ddd;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border-radius: 0;
 }

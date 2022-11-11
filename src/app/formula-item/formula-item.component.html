@@ -4,5 +4,7 @@
 <math-field class="plots-formula-item-editor">x</math-field>
 <div class="plots-formula-item-tools">
     <input nz-button #colorSelector type="color" (change)="updatePlotColor(colorSelector.value)">
-    <button nz-button nzType="primary" (click)="delete()"></button>
+    <button nz-button nzDanger="" (click)="delete()">
+        <span nz-icon nzType="delete" nzTheme="outline"></span>
+    </button>
 </div>

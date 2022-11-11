@@ -8,7 +8,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { FormulaItemComponent } from '../formula-item/formula-item.component';
 import { FormulaListComponent } from '../formula-list/formula-list.component';
 import 'mathlive';
-import { PlusOutline } from '@ant-design/icons-angular/icons';
+import { DeleteOutline, PlusOutline } from '@ant-design/icons-angular/icons';
 
 
 @NgModule({
@@ -21,7 +21,7 @@ import { PlusOutline } from '@ant-design/icons-angular/icons';
     HttpClientModule,
     NzButtonModule,
     NzInputModule,
-    NzIconModule.forChild([PlusOutline]),
+    NzIconModule.forChild([PlusOutline, DeleteOutline]),
     NzModalModule
   ],
   exports: [
